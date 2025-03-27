@@ -6,9 +6,31 @@
 
 Answer the supplemental questions here! Make sure you follow the format if it is asked
 Q1#######################
-QS1.1: 
+QS1.1: Explain how you implemented computeActionFromValues(state) and add your explanation to P3_supplmental.txt
 
-QS1.2:
+The function computeActonFromValues(state) is supposed to compute the best action according to the value 
+function given by self.values. So first we check if there are even any actions left, just so we can handle that case. 
+We do that with if self.mdp.isTerminal(state):, and then after we confirm there are actions we then go and get the next
+possible actions with actions = self.mdp.getPossibleActions(state)
+
+Now after we grabbed all of the actions we want to compute the best values from each action. So we compute the q values of 
+each and store it into qValue, we iterate through each state to compute this with the for loop, for action in actions, we go 
+through each one and call our computeQValuesFromValues function to get the q values, then retun back the best (most optimal
+based off of values) q value with return qValue.argMax()
+
+QS1.2: Explain how you implemented computeQvaluesfromValues(state,action) and add your explanation to P3_supplement.txt.
+
+In the project description, computeQValuesFromValues is supposed to return the Q value of the state and action pair given by self.values
+so we did this by first grabbing that state in the next transition so that we can use the state and action. We grab the next
+state with nextActions = self.mdp.getTransitionStatesAndProbs(state,action). Once we gather the actions we will go into each to use
+their states and actions with the for loop for actions in nextActions:. 
+
+In this, we compute the q value of each state and its action, this takes into account the discount you gave us and is made
+after the formula given to properly compute the q value
+   value += actions[1] * (self.mdp.getReward(state, action,actions[0])+self.discount*self.values[actions[0]])
+after we compute it using the formula, we return that. This is used for our other function computeActionFromValues to choose the best
+out of all of these q values. 
+
 
 Q3#######################
 
