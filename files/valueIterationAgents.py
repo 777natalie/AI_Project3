@@ -65,8 +65,10 @@ class ValueIterationAgent(ValueEstimationAgent):
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
 
+        iteration = 0
         # running iterations to get values of each iteration and finding the best
-        for iter in range(0, self.iterations):
+       # for iter in range(0, self.iterations):
+        while iteration < self.iterations:
             # initialize counter into values
             values = self.values.copy()
             # for each state in mdp check if terminal then go thru each iteration to get values
@@ -80,6 +82,7 @@ class ValueIterationAgent(ValueEstimationAgent):
                 # add that to our counter
                 values[state] = qVal
             self.values = values
+            iteration += 1
 
 
     def getValue(self, state):
