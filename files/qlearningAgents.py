@@ -136,7 +136,7 @@ class QLearningAgent(ReinforcementAgent):
           return None
 
         if util.flipCoin(self.epsilon): 
-          # Probability of self.epsilon: random action 
+          # Probability of self.epsilon => random action 
           action = random.choice(legalActions)
         else:  
           # Otherwise, best action from Q values

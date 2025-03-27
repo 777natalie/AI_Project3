@@ -11,26 +11,87 @@ QS1.1:
 QS1.2:
 
 Q3#######################
-High discount (γ ≈ 1): Agent prefers immediate +1 over distant +10.
-
-Low noise (≈ 0): Low risk of accidentally falling into the cliff.
-
-Neutral/zero living reward: No incentive to delay termination
 
 QS3.1: 
+
+A. Prefer the close exit (+1), risking the cliff (-10):
+
+discount = 0.5
+noise = 0
+living reward = -1.0
+
+Since the agent prefers the closer exit, a lower discount and no noise is necessary to get the
+shortest path and closest reward. By making the living reward negative, this forces the agent to be 
+quicker despite the risk of the cliff.
+
+B. Prefer the close exit (+1), but avoiding the cliff (-10):
+
+discount = 0.3
+noise = 0.2
+living reward = -0.1
+
+To achieve the closer exit, a lower discount is makes the agent want the nearest reward. As for the noise,
+0 wasn't necessary since the agent is just avoiding the cliff and not risking it. The living reward isn't as
+strong as a penalty since the agent needs to be a little more cautious with its path. 
+
+C. Prefer the distant exit (+10), risking the cliff (-10):
+
+discount: 0.9
+noise: 0
+living reward: -0.1
+
+With a higher discount means the agent will search for a higher reward. This means it will prefer the distant
+(+10) exit. Noise isn't necessary since it is able to take risks with the cliff. As for the living reward, the duration of the agents path doesn't need to be quick but it also doesn't care so much about the cliff. Due to this, I chose a small penalty. 
+
+D. Prefer the distant exit (+10), avoiding the cliff (-10):
+
+discount: 0.9
+noise: 0.3
+living reward: -0.1
+
+Like part C a high discount and small penalty is needed for the agent to choose the distant exit. The difference
+is that with a small noise parameter, the agent will choose to be more cautious of the cliff. 
+
+E. Avoid both exits and the cliff (so an episode should never terminate):
+
+discount: 0.0
+noise: 0.0
+living reward: 10.0
+
+In order to avoid both exits and the cliffs, the agent should't care about the reward or risk if the living
+reward is extremely high. This will cause it to prioritize living and never terminating. 
+
+
 Q5#######################
 
 QS5.1:
 
-QS5.2 [optional]:
+In order to implement my Q-learning agent, I initialized a dictionary Qvals that keeps track of states and 
+their actions and the corresponding Q values. This allowed me to know what states were visited, terminal states, and update states. I then was able to retrieve the Q values in the getQValue function by searching through the dictionary Qvals. 
+
+To get the maximum Q value in computeValueFromQValues, I checked whether a state had legal actions or not and then searched through the list of legal actions for the given state in order to retrieve the max Q value.
+
+Next I was able to choose the best (legal) action for a state. This was done by finding all actions
+with the maximum Q value. Using the previous function, I was able to find the max Q value, make a list of best actions (since there could be ties) and compared each Q value that corresponded to the state and its action to the max Q value. I returned a random choice from the best actions list to break the tie. 
+
+As for updating Q values I used the Bellman equation. To help determine future rewards in the Bellman implementation, I retrieved the maximum Q value from nextState and then added the new Q value to the original QVals dictionary to update the new state with its Q value.
+
+QS5.2 [optional]: 
 
 Q6#######################
+
 QS6.1:
+The behavior of the agent changed how I expected. With a lower epsilon value the agent makes less random decisions and doesn't utilize exploration as much. It stuck to the same path and didn't necessarily choose the best path. As for the 0.9 value the agent began to explore more and more and took a lot more time. This is because the exploration rate was much higher than previously. 
+
 QS6.2 [optional]:
 
 
 Q7#######################
 QS7.1
+
+There was not an epsilon or a learning rate that caused the optimal policy to be learned after 50 iterations.
+Thus, NOT POSSIBLE is returned. This is likely due to the agents exploration becoming more random over time, causing it to miss states. This means the greater than 99% confidence isn't achievable.
+
 
 
 
