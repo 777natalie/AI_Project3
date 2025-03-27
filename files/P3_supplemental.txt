@@ -31,7 +31,13 @@ after the formula given to properly compute the q value
 after we compute it using the formula, we return that. This is used for our other function computeActionFromValues to choose the best
 out of all of these q values. 
 
+
 Q3#######################
+High discount (γ ≈ 1): Agent prefers immediate +1 over distant +10.
+
+Low noise (≈ 0): Low risk of accidentally falling into the cliff.
+
+Neutral/zero living reward: No incentive to delay termination
 
 QS3.1: 
 Q5#######################
