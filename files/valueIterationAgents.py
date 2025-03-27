@@ -171,3 +171,59 @@ class PrioritizedSweepingValueIterationAgent(ValueIterationAgent):
 
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
+
+        # compute predecessors of all states
+        self.predecessors = util.Counter()
+        # initialize an empty priority queue
+        self.queue = util.PriorityQueue()
+
+        # for each non terminal state s, do 
+        for s in self.mdp.getStates():
+            if not self.mdp.isTerminal(s):
+                self.predecessors[s] = set()
+
+        # find absolute value of difference betweeen current value of s and best q value of s
+        # assign this to diff
+        for s in self.mdp.getStates():
+            if not self.mdp.isTerminal(s):
+                values = self.computeActionFromValues(s)
+                # get best q val from values
+                bestQVal = self.computeQValueFromValues(s, values)
+                currVal = self.values[s]
+                diff = abs(currVal - bestQVal)
+
+                # push s into the priority queue with priority -diff 
+                self.queue.push(s, -diff)   
+
+        # for iteration 
+        for iter in range(self.iterations):
+
+            #if priority queue is empty then terminate
+            if self.queue.isEmpty():
+                break
+
+        # pop a state s off the priority queue
+        s = self.queue.pop()
+
+        # if not in terminal state then update the values of s
+        if not self.mdp.isTerminal(s):
+            action = self.computeActionFromValues(s)
+            self.values[s] = self.computeQValueFromValues(s, values)
+
+        # for each predecessor p of s
+        for p in self.predecessors[s]:
+        # Find the absolute value of the difference between the current value of p in
+        # self.values and the highest Q-value across all possible actions from p 
+        # (this represents what the value should be); call this number diff. 
+           
+            actions = self.computeActionFromValues(p)
+            QvalBest = self.computeQValueFromValues(p, actions)
+            # look over all actions to find best q val
+            currentVal = self.values[p]
+            # use q val and current value to get absolute value of their difference
+            diff = abs(currentVal - QvalBest)
+            # if diff > theta, push p onto priority queue with priority -diff
+            if diff > self.theta:
+                self.queue.update(p, -diff)
+
+
