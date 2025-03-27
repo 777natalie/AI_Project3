@@ -67,7 +67,6 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         iteration = 0
         # running iterations to get values of each iteration and finding the best
-       # for iter in range(0, self.iterations):
         while iteration < self.iterations:
             # initialize counter into values
             values = self.values.copy()
@@ -82,6 +81,7 @@ class ValueIterationAgent(ValueEstimationAgent):
                 # add that to our counter
                 values[state] = qVal
             self.values = values
+            # add on to show iteration has been counted for
             iteration += 1
 
 
