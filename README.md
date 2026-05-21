@@ -127,4 +127,5 @@ AI_Project3/
 ## Author
 
 **Natalie Roman** · [github.com/777natalie](https://github.com/777natalie)  
+**Isabela Najera** [github.com/isabelanajera](https://github.com/isabelanajera)
 Computer Science, University of Oklahoma · Class of 2025
